@@ -1,0 +1,376 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://kit.fontawesome.com/d2b368bef3.js" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <!-- <link rel="stylesheet" href="{% static 'ml/home.css' %}"> -->
+    <title>Website</title>
+    
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+            
+        }
+        html{
+            font-size: 10px;
+            scroll-behavior: smooth;
+        }
+
+        .col-right{
+            /* width: 100%; */
+            /* display: grid; */
+            /* height: 100%; */
+            place-items: center;
+            text-align: center;
+        }
+        #img-upload{
+            /* background-image: url(); */
+            background-size: cover;
+            position: relative;
+            background-position: top center;
+            z-index: 1;
+        }
+        #img-upload::after{
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: 100%;
+            content: '';
+            background-color: rgb(66, 66, 66);
+            opacity: 0.6;
+            z-index: -1;
+        }
+        #img-upload h1 {
+            margin: 0rem auto;
+            display: block;
+            position: relative;
+            width: max-content;
+            font-size: 4rem;
+            color: white;
+            font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+            margin-top: -13rem;
+            margin-bottom: 6rem;
+        }
+        .containers{
+            min-height : 87vh;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+        }
+        .containerss{
+            height: 350px;
+            width: 430px;
+            place-items: center;
+            text-align: center;
+        }
+        .containerss .wrapper{
+            position: relative;
+            height: 300px;
+            width: 100%;
+            border: 4px dashed #c2cdda;
+            border-radius: 10px;
+            background: transparent;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .wrapper.active{
+            border:none;
+        }
+
+        .wrapper .image{
+            position: absolute;
+            height: 100%;
+            width: 100%;
+            display: flex;
+            align-items: center;
+        }
+
+        .wrapper .image img{
+            height: 100%;
+            width: 100%;
+            object-fit: cover;
+        }
+
+        .wrapper .icon{
+            font-size: 100px;
+            color: #9658fe;
+        }
+
+        .wrapper .text{
+            font-size: 20px;
+            font-weight: 500;
+            color: #5B5B7B;
+        }
+
+        .wrapper #cancel-btn{
+            position: absolute;
+            right: 15px;
+            top: 15px;
+            font-size: 20px;
+            cursor: pointer;
+            color: #9658fe;
+            display: none;
+        }
+
+        .wrapper.active:hover #cancel-btn{
+            display: block;
+        }
+        .wrapper #cancel-btn:hover{
+            color: #e74c3c;
+        }
+
+        .wrapper .file-name{
+            position: absolute;
+            bottom: 0px;
+            background: linear-gradient(135deg, #3a8ffe 0%, #9658fe 100%);
+            width: 100%;
+            color: #fff;
+            padding: 8px 0;
+            font-size: 18px;
+            align-items: center;
+            justify-self: center;
+            display: none;
+        }
+
+        .wrapper.wrapper.active:hover .file-name{
+            display: block;
+        }
+
+        .containerss #custom-btn{
+            background: linear-gradient(135deg, #3a8ffe 0%, #9658fe 100%);
+            width: 100%;
+            color: #fff;
+            font-size: 18px;
+            display: block;
+            margin-top: 30px;
+            height: 18%;
+            border: none;
+            border-radius: 25px;
+            font-weight: 500;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            cursor: pointer;
+            outline: none;
+        }
+
+
+        .containerss .submit{
+            background: linear-gradient(135deg, #3a8ffe 0%, #9658fe 100%);
+            width: 40%;
+            color: #fff;
+            font-size: 18px;
+            display: block;
+            margin: 30px auto 0 auto;
+            height: 15%;
+            border: none;
+            border-radius: 25px;
+            font-weight: 500;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            cursor: pointer;
+            outline: none;
+        }
+
+        #img-upload .display {
+            flex-direction: row-reverse;
+            text-align: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 100px 20px;
+        }
+        label{
+            color: white;
+            font-size: 3rem;
+            margin-bottom:1rem;
+        }
+        input[type=file]{
+            color:transparent;
+            margin:2rem 0 1.5rem 0;
+
+        }
+        #img-upload .col-left {
+            width: 250px;
+            height: 360px;
+            width:55rem;
+        }
+        #img-upload .col-right {
+            width: 100%;
+        }
+
+
+
+        #slideshow { 
+            margin: 70px auto; 
+            position: relative; 
+            width: 300px; 
+            height: 300px; 
+            padding: 20px; 
+            box-shadow: 0 0 20px rgba(0,0,0,0.4); 
+        }
+
+        #slideshow .slideshow { 
+            position: absolute; 
+            top: 10px; 
+            left: 10px; 
+            right: 10px; 
+            bottom: 10px; 
+        }
+        
+        .col-right p {
+            margin-bottom: 20px;
+        }
+        .dropzone {
+            border-style: dashed;
+        }
+
+        @media only screen and (min-width: 768px) {
+            #img-upload .col-right {
+                text-align: left;
+                padding: 30px;
+                width:55rem;
+            }
+        }
+
+    </style>
+</head>
+
+<body>
+
+    {% include 'ml/navbar.html' %}
+    {% load static %}
+    <section  id="img-upload" style="background-image: url({% static 'ml/aakriti2.jpg' %});">
+        <div>
+            <div class="containers display">
+                <div class=col-left>
+                    <div id="slideshow">
+                        <div class="slideshow"> 
+                            <img src="{% static 'ml/aakriti1.jpg' %}">
+                        </div>
+                        <div class="slideshow">
+                            <img src="{% static 'ml/aakriti_forest.jpeg' %}">
+                        </div>
+                        <div class="slideshow">
+                            <img src="{% static 'ml/imgupload_bg.jpg' %}">
+                        </div>
+                        <div class="slideshow">
+                            <img src="{% static 'ml/aakriti3.jpg' %}">
+                        </div>
+                        <div class="slideshow">
+                            <img src="{% static 'ml/aakriti4.jpg' %}">
+                        </div>
+                        
+                    </div>
+                </div>
+
+
+                <div class="col-right">
+                <!-- <div>
+                    <h1 style="font-family: cursive;">People Making Tech Work</h1>
+                </div> -->
+                    <br/>
+                    <form method="post" enctype="multipart/form-data" action="predictImage2">
+                    {% csrf_token %}
+                        <div class="containerss" >
+                            <div class="wrapper">
+                                <div class="image">
+                                    <img class="input-img" src="" alt="">
+                                </div>
+                                <div class="content">
+                                    <div class="icon">
+                                        <i class="fas fa-cloud-upload-alt"></i>
+                                    </div>
+                                    <div class="text">No file choosen, yet!</div>
+                                </div>
+                                <div id="cancel-btn"><i class="fas fa-times"></i></div>
+                                <div class="file-name">File name here</div>
+                            </div>
+                            <input id="default-btn" type="file" name="filepath" hidden>
+                            <button onclick="defaultBtnActive()"type="button" id="custom-btn" >Choose a Image for Terrain Classification</button>
+
+                            <input type="submit" value="Upload" name="submit" class="submit" >
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer Section -->
+
+    {% include 'ml/footer.html' %}
+
+    <!-- End Footer Section -->
+
+
+</body>
+<script>
+    const wrapper = document.querySelector(".wrapper");
+    const fileName = document.querySelector(".file-name");
+    const cancelBtn = document.querySelector("#cancel-btn");
+    const defaultBtn = document.querySelector("#default-btn");
+    const customBtn = document.querySelector("#custom-btn");
+    const img = document.querySelector(".input-img");
+    const imgStyle = document.getElementsByClassName("input-img").style;
+    let regExp = /[0-9a-zA-Z\^\&\'\@\{\}\[\]\,\-\#\(\)\.\%\+\~\_ ]+$/;
+
+
+    function defaultBtnActive(){
+        defaultBtn.click();
+        // img.style.removeProperty('display');
+        // imgStyle.display = 'block' ;
+    }
+    defaultBtn.addEventListener("change", function () {
+        const file = this.files[0];
+        if(file){
+            
+            const reader = new FileReader();
+            reader.onload = function(){
+                const result = reader.result;
+                img.src =   result;
+                wrapper.classList.add("active");
+                // img.style.removeProperty('display');
+            }
+            cancelBtn.addEventListener("click", function(){
+                img.src =   "";
+                wrapper.classList.remove("active");
+            });
+            reader.readAsDataURL(file);
+        }
+        if(this.value){
+            let valueStore = this.value.match(regExp);
+            fileName.textContent = valueStore;
+        }
+        
+    })
+</script>
+
+<script>
+
+    $("#slideshow > div:gt(0)").hide();
+
+    setInterval(function() { 
+    $('#slideshow > div:first')
+    .fadeOut(800)
+    .next()
+    .fadeIn(800)
+    .end()
+    .appendTo('#slideshow');
+    }, 2000);
+
+    
+</script>
+
+</html>

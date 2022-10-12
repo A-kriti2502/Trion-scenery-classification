@@ -1,0 +1,69 @@
+{% load static %}
+<head>
+<link rel="stylesheet" href="{% static 'ml/navbar.css' %}">
+</head>
+
+
+<section id="header">
+    <div class="container header">
+        <div class="nav-bar">
+            <div class="brand">
+                <a href="#hero"><h1><span>T</span>rion</h1></a>
+            </div>
+            <div class="nav-list">
+                <div class="hamburger">
+                    <div class="bar"></div>
+                </div>
+                <div>
+                <ul>
+                    <li><a href="{% url 'home' %}" data-after="home">Home</a></li>
+                    <li><a href="#projects" data-after="Classifiers">Classifiers</a></li>
+                    <li><a href="#about" data-after="About">About Us</a></li>
+                    <li><a href="#footer" data-after="Contact">Contact Us</a></li>
+                </ul>
+                </div>
+                <div>
+                <ul>
+                    {% if user.is_authenticated %}
+                    <li><a href="../logout" data-after="Logout">Logout</a></li>
+                    {% else %}
+                    <li><a href="../signup" data-after="SignUp">Sign Up</a></li>
+                    {% comment %} <li> / </li> {% endcomment %}
+                    <li><a href="../login" data-after="LogIn">Log In</a></li>
+                    {% endif %}
+                </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+    <script>
+          
+        const hamburger = document.querySelector('.header .nav-bar .nav-list .hamburger');
+        const mobile_menu = document.querySelector('.header .nav-bar .nav-list ul');
+        const menu_item = document.querySelectorAll('.header .nav-bar .nav-list ul li a');
+        const header = document.querySelector('.header.container');
+
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('active');
+            mobile_menu.classList.toggle('active');
+        });
+
+        document.addEventListener('scroll', () => {
+            var scroll_position = window.scrollY;
+            if (scroll_position > 250) {
+                header.style.backgroundColor = '#29323c';
+            } else {
+                header.style.backgroundColor = 'transparent';
+            }
+        });
+
+        menu_item.forEach((item) => {
+            item.addEventListener('click', () => {
+                hamburger.classList.toggle('active');
+                mobile_menu.classList.toggle('active');
+            });
+        });
+        
+    </script>

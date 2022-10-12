@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'ml/home.css' %}">
+    <title>Website</title>
+    <style>
+        #projects .project-info p {
+            font-size:2rem;
+        }
+        #projects .project-info h1:hover {
+            color: #e28f8f;
+        }
+    </style>
+</head>
+
+<body>
+
+
+    <!-- Header section -->
+
+    <section id="header">
+        <div class="container header">
+            <div class="nav-bar">
+                <div class="brand">
+                    <a href="#hero"><h1><span>T</span>rion</h1></a>
+                </div>
+                <div class="nav-list">
+                    <div class="hamburger">
+                        <div class="bar"></div>
+                    </div>
+                    <div>
+                    <ul>
+                        <li><a href="#hero" data-after="home">Home</a></li>
+                        <li><a href="#projects" data-after="Classifiers">Classifiers</a></li>
+                        <li><a href="#about" data-after="About">About Us</a></li>
+                        <li><a href="#footer" data-after="Contact">Contact Us</a></li>
+                    </ul>
+                    </div>
+                    <div>
+                    <ul>
+                        {% if user.is_authenticated %}
+                        <li><a href="../logout" data-after="Logout">Logout</a></li>
+                        {% else %}
+                        <li><a href="../signup" data-after="SignUp">Sign Up</a></li>
+                        {% comment %} <li> / </li> {% endcomment %}
+                        <li><a href="../login" data-after="LogIn">Log In</a></li>
+                        {% endif %}
+                    </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- End Header section -->
+
+
+    <!-- Hero Section -->
+    {% load static %}
+    <section style="background-image: url({% static 'ml/aakriti3.jpg' %});" id="hero">
+        <div class="hero container">
+            <div>
+                {% if user.is_authenticated %}
+                <h1>Hello, {{user.username}}<span></span></h1>
+                <h1 >Welcome to TRION <span></span></h1>
+                <br/>
+                <br/>
+                <h1 style="font-family: cursive;">People Making Tech Work <span></span></h1>
+                
+                {% else %}
+                <h1 >Welcome to TRION <span></span></h1>
+                <br/>
+                <br/>
+                <br/>
+                <br/>
+                <br/>
+                <br/>
+                <h1 style="font-family: cursive;">People Making Tech Work <span></span></h1>
+                {% endif %}
+
+            </div>
+        </div>
+    </section>
+    <!-- End Hero Section -->
+
+
+    <!-- Project Section -->
+    {% load static %}
+    <div id="projects">
+        <div class="container project">
+            <div class="project-header">
+                <h1 class="section-title"><span>C</span>lassifiers</h1>
+            </div>
+            <div class="all-projects">
+                <div class="project-item">
+                    <div class="project-info">
+                        <a href="{% url 'predictImage2' %}" style="color:white;" ><h1>Terrain Classification</h1></a>
+                        
+                        <p>
+                            This classifies natural scenes around the world.
+                        </p>
+                    </div>
+                    <div class="project-img">
+                        <a href="{% url 'predictImage2' %}"><img src="{% static './ml/project-img-1.jpg' %}" alt="img-1"></a>
+                    </div>
+                </div>
+                <div class="project-item">
+                    <div class="project-info">
+                        <h1>Domiciliary Classification</h1>
+                        
+                        <p>
+                            This multi-class classifier classifies indoor scenes
+                        </p>
+                    </div>
+                    <div class="project-img">
+                        <img src="{% static './ml/project-img-2.jpg' %}" alt="img-1">
+                    </div>
+                </div>
+                <div class="project-item">
+                    <div class="project-info">
+                        <a href="{% url 'predictImage3' %}" style="color:white;" ><h1>Climate Classification</h1></a>
+                        
+                        <p>
+                            This classifies weather recognition
+                        </p>
+                    </div>
+                    <div class="project-img">
+                        <a href="{% url 'predictImage3' %}"style="color:white;"><img src="{% static './ml/project-img-3.jpg' %}" alt="img-1"></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- End Project Section -->
+
+
+
+    <!-- About Section -->
+
+    <section id="about">
+        <div class="about container">
+            <div class="col-left">
+                <div class="about-img">
+                    <img src="{% static 'ml/about-img.jpg' %}" alt="My img">
+                </div>
+            </div>
+            <div class="col-right">
+                <h1 class="section-title">About <span>Us</span></h1>
+                <br/>
+                <p>
+                    Although image classification is a common ML task that allows us to classify image into categories such as
+                    Terrain, climate, Domiciliary.
+                    There are different types of tasks categorized in M.L. and therefore the project, deals with Image Classification.
+
+                </p>
+                <a href="#" class="cta"> More About Us </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- End About Section -->
+
+
+
+    <!-- Footer Section -->
+
+    {% include 'ml/footer.html' %}
+
+    <!-- End Footer Section -->
+
+
+    <script>
+          
+        const hamburger = document.querySelector('.header .nav-bar .nav-list .hamburger');
+        const mobile_menu = document.querySelector('.header .nav-bar .nav-list ul');
+        const menu_item = document.querySelectorAll('.header .nav-bar .nav-list ul li a');
+        const header = document.querySelector('.header.container');
+
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('active');
+            mobile_menu.classList.toggle('active');
+        });
+
+        document.addEventListener('scroll', () => {
+            var scroll_position = window.scrollY;
+            if (scroll_position > 250) {
+                header.style.backgroundColor = '#29323c';
+            } else {
+                header.style.backgroundColor = 'transparent';
+            }
+        });
+
+        menu_item.forEach((item) => {
+            item.addEventListener('click', () => {
+                hamburger.classList.toggle('active');
+                mobile_menu.classList.toggle('active');
+            });
+        });
+        
+    </script>
+
+
+</body>
+
+</html>

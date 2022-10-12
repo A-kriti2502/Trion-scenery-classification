@@ -1,0 +1,175 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- <link rel="stylesheet" href="{% static 'ml/home.css' %}"> -->
+    <title>Website</title>
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+
+        html{
+            font-size: 10px;
+            scroll-behavior: smooth;
+        }
+        #display-img{
+            background-color:rgb(28, 88, 28);
+            background-size: cover;
+            position: relative;
+            background-position: top center;
+            z-index: 1;
+        }
+        #display-img::after{
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: 100%;
+            content: '';
+            background-color: rgb(66, 66, 66);
+            opacity: 0.6;
+            z-index: -1;
+        }
+        #display-img h1 {
+            display: block;
+            position: relative;
+            width: fit-content;
+            font-size: 4rem;
+            color: white;
+        }
+        .containers{
+            min-height : 87vh;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+        }
+        label{
+            color: white;
+            font-size: 3rem;
+        }
+        h2{
+            color: white;
+            font-size: 3rem;
+        }
+        #display-img img{
+            width: 180px!important;
+            height: 180px!important;
+        }
+        #display-img .display {
+            flex-direction: column-reverse;
+            text-align: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 100px 20px;
+        }
+        #display-img .col-left {
+            width: 250px;
+            height: 360px;
+        }
+        #display-img .col-left .about-img{
+            margin-top: 70px;
+            height: 180px;
+            width: 180px;
+            position: relative;
+            /* border: 10px solid white; */
+        }
+
+        #display-img .col-left .about-img::after{
+            content: '';
+            position: absolute;
+            left: -25px;
+            top: 19px;
+            height: 98%;
+            width: 98%;
+            border: 5px solid #3f4c58;
+            z-index: -1;
+        }
+
+        #display-img .col-right {
+            width: 100%;
+        }
+        #display-img .col-right h2 {
+            font-size: 1.8rem;
+            font-weight: 500;
+            letter-spacing: .2rem;
+            margin-bottom: 10px;
+        }
+        #display-img .col-right p {
+            margin-bottom: 20px;
+        }
+
+        @media only screen and (min-width: 768px) {
+
+            /* About */
+            #display-img .display {
+                flex-direction: row;
+            }
+            #display-img .col-left {
+                width: 600px;
+                height: 400px;
+                padding-left: 60px;
+            }
+            #display-img .display .col-left .about-img::after {
+                left: -30px;
+                top: 22px;
+                height: 98%;
+                width: 98%;
+                border: 10px solid #3f4c58;
+            }
+            #display-img .col-right {
+                text-align: left;
+                padding: 30px;
+            }
+            #display-img .col-right h1 {
+                text-align: left;
+            }
+        }
+
+    </style>
+</head>
+
+<body>
+
+    {% include 'ml/navbar.html' %}
+    {% load static %}
+    <section id="display-img" style="background-image: url({% static 'ml/aakriti2.jpg' %});">
+        <div class="containers display ">
+            
+            <div class="col-left">
+                <div class="about-img">
+                    <img src = {{filepathName}}/>
+                </div>
+            </div>
+            
+            <div class="col-right">
+                <h1>The Classification of the image is {{predictedLabel}} </h1>
+                <br/>
+                <p>{{text}}</p>
+                <!-- <img src = {{filepathName}}/> -->
+                <!-- <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorum sed natus, tempore harum vero quam repellat, quo porro aspernatur nesciunt voluptates, beatae mollitia quae ducimus. Illo minus ea repellat temporibus?</p> -->
+            </div>
+
+            
+        </div>
+    </section>
+
+    <!-- Footer Section -->
+
+    {% include 'ml/footer.html' %}
+
+    <!-- End Footer Section -->
+
+
+
+</body>
+
+</html>

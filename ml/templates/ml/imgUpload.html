@@ -1,0 +1,218 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <!-- <link rel="stylesheet" href="{% static 'ml/home.css' %}"> -->
+    <title>Website</title>
+    
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+
+        html{
+            font-size: 10px;
+            scroll-behavior: smooth;
+        }
+        #img-upload{
+            /* background-image: url(); */
+            background-size: cover;
+            position: relative;
+            background-position: top center;
+            z-index: 1;
+        }
+        #img-upload::after{
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: 100%;
+            content: '';
+            background-color: rgb(66, 66, 66);
+            opacity: 0.6;
+            z-index: -1;
+        }
+        #img-upload h1 {
+            margin: 0rem auto;
+            display: block;
+            position: relative;
+            width: max-content;
+            font-size: 4rem;
+            color: white;
+            font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+            margin-top: -13rem;
+            margin-bottom: 6rem;
+        }
+        .containers{
+            min-height : 87vh;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+        }
+        #img-upload .display {
+            flex-direction: row-reverse;
+            text-align: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 100px 20px;
+        }
+        label{
+            color: white;
+            font-size: 3rem;
+            margin-bottom:1rem;
+        }
+        input[type=file]{
+            color:transparent;
+            margin:2rem 0 1.5rem 0;
+            {% comment %} width: 250px {% endcomment %}
+            {% comment %} opacity:0; {% endcomment %}
+        }
+        #img-upload .col-left {
+            width: 250px;
+            height: 360px;
+            width:55rem;
+        }
+        #img-upload .col-right {
+            width: 100%;
+        }
+        #slideshow { 
+            margin: 70px auto; 
+            position: relative; 
+            width: 240px; 
+            height: 240px; 
+            padding: 10px; 
+            box-shadow: 0 0 20px rgba(0,0,0,0.4); 
+        }
+
+        #slideshow > div { 
+            position: absolute; 
+            top: 10px; 
+            left: 10px; 
+            right: 10px; 
+            bottom: 10px; 
+        }
+        
+        .col-right p {
+            margin-bottom: 20px;
+        }
+
+        @media only screen and (min-width: 768px) {
+             #img-upload .col-right {
+                text-align: left;
+                padding: 30px;
+                width:55rem;
+            }
+            #slideshow { 
+            margin: 70px auto; 
+            position: relative; 
+            width: 300px; 
+            height: 300px; 
+            padding: 20px; 
+            box-shadow: 0 0 20px rgba(0,0,0,0.4); 
+            }
+             
+
+            #slideshow .slideshow { 
+                position: absolute; 
+                top: 10px; 
+                left: 10px; 
+                right: 10px; 
+                bottom: 10px; 
+            }
+            
+            .display > div{
+                top:10px;
+            }
+        }
+
+    </style>
+</head>
+
+<body>
+
+    {% include 'ml/navbar.html' %}
+    {% load static %}
+    <section  id="img-upload" style="background-image: url({% static 'ml/aakriti2.jpg' %});">
+        <div>
+            
+            <div class="containers display">
+                <div class=col-left>
+                    <div id="slideshow">
+                        <div class="slideshow"> 
+                            <img src="{% static 'ml/aakriti1.jpg' %}">
+                        </div>
+                        <div class="slideshow">
+                            <img src="{% static 'ml/aakriti_forest.jpeg' %}">
+                        </div>
+                        <div class="slideshow">
+                            <img src="{% static 'ml/imgupload_bg.jpg' %}">
+                        </div>
+                        <div class="slideshow">
+                            <img src="{% static 'ml/aakriti3.jpg' %}">
+                        </div>
+                        <div class="slideshow">
+                            <img src="{% static 'ml/aakriti4.jpg' %}">
+                        </div>
+                        {% comment %} <div class="slideshow">
+                            Pretty cool eh? This slide is proof the content can be anything.
+                        </div> {% endcomment %}
+                    </div>
+                </div>
+
+
+                <div class="col-right">
+                <div>
+                    <h1 style="font-family: cursive;">People Making Tech Work</h1>
+                </div>
+                    <br/>
+                    <form method="post" enctype="multipart/form-data" action="predictImage2">
+                    {% csrf_token %}
+                    <br/>
+                        <div>
+                            <label for="filepath">
+                                Upload Your Image File Here:
+                            </label>
+                            <br>
+                            <input name="filepath" type="file" />
+                            <br>
+                            <br>
+                            <input type="submit" value="Upload" name="submit" >
+                        </div>
+                    
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer Section -->
+
+    {% include 'ml/footer.html' %}
+
+    <!-- End Footer Section -->
+
+
+</body>
+<script>
+    $("#slideshow > div:gt(0)").hide();
+
+    setInterval(function() { 
+    $('#slideshow > div:first')
+    .fadeOut(800)
+    .next()
+    .fadeIn(800)
+    .end()
+    .appendTo('#slideshow');
+    }, 2000);
+</script>
+
+</html>
